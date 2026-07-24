@@ -177,7 +177,7 @@ class ArangoDbPersister(Persister):
 from functools import wraps
 
 from dol.base import Store
-from py2store.util import lazyprop
+from dol.util import lazyprop
 
 
 class ArangoDbStore(Store):
