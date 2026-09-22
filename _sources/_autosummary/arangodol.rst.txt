@@ -1,0 +1,20 @@
+﻿arangodol
+=========
+
+.. automodule:: arangodol
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      validate_document_key
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ArangoDbPersister
+      ArangoDbStore
+      ArangoDbTupleKeyStore
+   

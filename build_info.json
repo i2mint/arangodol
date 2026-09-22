@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-09-22T16:17:54Z",
+  "package": {
+    "name": "arangodol",
+    "version": "0.0.3",
+    "display_name": "arangodol",
+    "source": "pyproject.toml"
+  },
+  "git": {
+    "available": true,
+    "commit": "ee40edaa53fbf991e3465516acdff615773d4381",
+    "short_commit": "ee40eda",
+    "branch": "master",
+    "tags": [
+      "0.0.3"
+    ],
+    "dirty": false,
+    "remote_url": "https://github.com/i2mint/arangodol",
+    "commit_url": "https://github.com/i2mint/arangodol/commit/ee40edaa53fbf991e3465516acdff615773d4381",
+    "error": null
+  },
+  "ci": {
+    "provider": "github",
+    "repository": "i2mint/arangodol",
+    "sha": "51dbbcce4de671968fee343f70ed21cda26f7329",
+    "sha_in_history": true,
+    "ref": "refs/heads/master",
+    "ref_name": "master",
+    "run_id": "35752936674",
+    "run_url": "https://github.com/i2mint/arangodol/actions/runs/35752936674",
+    "server_url": "https://github.com"
+  },
+  "tools": {
+    "epythet": "0.2.12",
+    "sphinx": "9.1.0",
+    "docutils": "0.22.4",
+    "python": "3.12.14"
+  },
+  "config": {
+    "theme": "auto",
+    "html_theme": "shibuya",
+    "accent": "#864600",
+    "mode": "auto",
+    "api_generator": "autosummary",
+    "ignore": [
+      "tests/",
+      "scrap/",
+      "examples/"
+    ],
+    "agent_outputs": true,
+    "aggregates": [
+      "md"
+    ],
+    "ai_artifacts": true,
+    "provenance": true,
+    "docs_dir": "docsrc"
+  },
+  "site": {
+    "modules_documented": 1,
+    "objects_documented": 4
+  },
+  "pypi": {
+    "checked": true,
+    "latest": "0.0.3",
+    "relation": "same",
+    "error": null
+  },
+  "reproduce": "git clone https://github.com/i2mint/arangodol && cd arangodol\ngit checkout ee40edaa53fbf991e3465516acdff615773d4381\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "warnings": [],
+  "alignment": {
+    "aligned": true,
+    "notes": []
+  }
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="orange" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>arangodol - arangodol</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="API reference" href="../api.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d88b86f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="arangodol"/>
+    <meta name="twitter:card" content="summary"/>
+  
+<link rel="alternate" type="text/markdown" href="arangodol.html.md">
+<link rel="describedby" href="../llms.txt" type="text/markdown">
+</head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>arangodol</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/i2mint/arangodol" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">arangodol</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#arangodol.ArangoDbPersister"><code class="docutils literal notranslate"><span class="pre">ArangoDbPersister</span></code></a></li>
+<li><a class="reference internal" href="#arangodol.ArangoDbStore"><code class="docutils literal notranslate"><span class="pre">ArangoDbStore</span></code></a></li>
+<li><a class="reference internal" href="#arangodol.ArangoDbTupleKeyStore"><code class="docutils literal notranslate"><span class="pre">ArangoDbTupleKeyStore</span></code></a></li>
+<li><a class="reference internal" href="#arangodol.validate_document_key"><code class="docutils literal notranslate"><span class="pre">validate_document_key()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">arangodol</span></a>
+        <meta itemprop="position" content="1" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue dark-code" role="main">
+          <section id="module-arangodol">
+<span id="arangodol"></span><h1>arangodol<a class="headerlink" href="#module-arangodol" title="Link to this heading">#</a></h1>
+<p>arango with a simple (dict-like or list-like) interface</p>
+<p class="rubric">Functions</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#arangodol.validate_document_key" title="arangodol.validate_document_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_document_key</span></code></a>(key)</p></td>
+<td><p>Return <code class="docutils literal notranslate"><span class="pre">key</span></code> if it is a safe ArangoDB document key, else raise <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Classes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#arangodol.ArangoDbPersister" title="arangodol.ArangoDbPersister"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArangoDbPersister</span></code></a>([user, password, url, ...])</p></td>
+<td><p>A basic ArangoDB persister.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#arangodol.ArangoDbStore" title="arangodol.ArangoDbStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArangoDbStore</span></code></a>([user, password, url, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#arangodol.ArangoDbTupleKeyStore" title="arangodol.ArangoDbTupleKeyStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArangoDbTupleKeyStore</span></code></a>([user, password, url, ...])</p></td>
+<td><p>ArangoDbStore using tuple keys.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="arangodol.ArangoDbPersister">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">arangodol.</span></span><span class="sig-name descname"><span class="pre">ArangoDbPersister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'root'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'root'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'http://127.0.0.1:8529'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'py2store'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('key',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_fields_separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'::'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/arangodol.html#ArangoDbPersister"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arangodol.ArangoDbPersister" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">KvPersister</span></code></p>
+<p>A basic ArangoDB persister.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">py2store.persisters.arangodb_w_pyarango</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArangoDbPersister</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">ArangoDbPersister</span><span class="p">()</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">k</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'key'</span><span class="p">:</span> <span class="s1">'777'</span><span class="p">}</span> <span class="c1"># Each collection will happily accept user-defined _key values.</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'val'</span><span class="p">:</span> <span class="s1">'bar'</span><span class="p">}</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">_key</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+</span><span data-line="6"><span class="gp">... </span>    <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="n">_key</span><span class="p">]</span>
+</span><span data-line="7"><span class="gp">...</span>
+</span><span data-line="8"><span class="gp">&gt;&gt;&gt; </span><span class="n">k</span> <span class="ow">in</span> <span class="n">s</span>
+</span><span data-line="9"><span class="go">False</span>
+</span><span data-line="10"><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="11"><span class="go">0</span>
+</span><span data-line="12"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+</span><span data-line="13"><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="14"><span class="go">1</span>
+</span><span data-line="15"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span data-line="16"><span class="go">{'val': 'bar'}</span>
+</span><span data-line="17"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span data-line="18"><span class="go">{'val': 'bar'}</span>
+</span><span data-line="19"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">({</span><span class="s1">'not'</span><span class="p">:</span> <span class="s1">'a key'</span><span class="p">},</span> <span class="p">{</span><span class="s1">'default'</span><span class="p">:</span> <span class="s1">'val'</span><span class="p">})</span>  <span class="c1"># testing s.get with default</span>
+</span><span data-line="20"><span class="go">{'default': 'val'}</span>
+</span><span data-line="21"><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</span><span data-line="22"><span class="go">[{'val': 'bar'}]</span>
+</span><span data-line="23"><span class="gp">&gt;&gt;&gt; </span><span class="n">k</span> <span class="ow">in</span> <span class="n">s</span>  <span class="c1"># testing __contains__ again</span>
+</span><span data-line="24"><span class="go">True</span>
+</span><span data-line="25"><span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span data-line="26"><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="27"><span class="go">0</span>
+</span><span data-line="28"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">ArangoDbPersister</span><span class="p">(</span><span class="n">db_name</span><span class="o">=</span><span class="s1">'py2store'</span><span class="p">,</span> <span class="n">key_fields</span><span class="o">=</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,))</span>
+</span><span data-line="29"><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">_key</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+</span><span data-line="30"><span class="gp">... </span>    <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="n">_key</span><span class="p">]</span>
+</span><span data-line="31"><span class="gp">...</span>
+</span><span data-line="32"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'guido'</span><span class="p">}]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'yob'</span><span class="p">:</span> <span class="mi">1956</span><span class="p">,</span> <span class="s1">'proj'</span><span class="p">:</span> <span class="s1">'python'</span><span class="p">,</span> <span class="s1">'bdfl'</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+</span><span data-line="33"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'guido'</span><span class="p">}]</span>
+</span><span data-line="34"><span class="go">{'yob': 1956, 'proj': 'python', 'bdfl': False}</span>
+</span><span data-line="35"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'vitalik'</span><span class="p">}]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'yob'</span><span class="p">:</span> <span class="mi">1994</span><span class="p">,</span> <span class="s1">'proj'</span><span class="p">:</span> <span class="s1">'ethereum'</span><span class="p">,</span> <span class="s1">'bdfl'</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</span><span data-line="36"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'vitalik'</span><span class="p">}]</span>
+</span><span data-line="37"><span class="go">{'yob': 1994, 'proj': 'ethereum', 'bdfl': True}</span>
+</span><span data-line="38"><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span data-line="39"><span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span data-line="40"><span class="go">{'name': 'guido'}: {'yob': 1956, 'proj': 'python', 'bdfl': False}</span>
+</span><span data-line="41"><span class="go">{'name': 'vitalik'}: {'yob': 1994, 'proj': 'ethereum', 'bdfl': True}</span>
+</span></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="arangodol.ArangoDbStore">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">arangodol.</span></span><span class="sig-name descname"><span class="pre">ArangoDbStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'root'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'root'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'http://127.0.0.1:8529'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'py2store'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('key',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_fields_separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'::'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/arangodol.html#ArangoDbStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arangodol.ArangoDbStore" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Store</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="arangodol.ArangoDbTupleKeyStore">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">arangodol.</span></span><span class="sig-name descname"><span class="pre">ArangoDbTupleKeyStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'root'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'root'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'http://127.0.0.1:8529'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'py2store'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('key',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_fields_separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'::'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/arangodol.html#ArangoDbTupleKeyStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arangodol.ArangoDbTupleKeyStore" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#arangodol.ArangoDbStore" title="arangodol.ArangoDbStore"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArangoDbStore</span></code></a></p>
+<p>ArangoDbStore using tuple keys.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">py2store.stores.arangodb_store</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArangoDbTupleKeyStore</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">ArangoDbTupleKeyStore</span><span class="p">(</span><span class="n">collection_name</span><span class="o">=</span><span class="s1">'test'</span><span class="p">,</span> <span class="n">key_fields</span><span class="o">=</span><span class="p">(</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">))</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1234</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">)</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'bob'</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>  <span class="c1"># deleting all docs in tmp</span>
+</span><span data-line="6"><span class="gp">... </span>    <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span data-line="7"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span>  <span class="c1"># see that key is not in store (and testing __contains__)</span>
+</span><span data-line="8"><span class="gp">&gt;&gt;&gt; </span><span class="n">orig_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="9"><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+</span><span data-line="10"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">orig_length</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span data-line="11"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="12"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">v</span>
+</span><span data-line="13"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">==</span> <span class="n">v</span>
+</span><span data-line="14"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</span><span data-line="15"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span> <span class="c1"># testing __contains__ again</span>
+</span><span data-line="16"><span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span data-line="17"><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">orig_length</span>
+</span></pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arangodol.validate_document_key">
+<span class="sig-prename descclassname"><span class="pre">arangodol.</span></span><span class="sig-name descname"><span class="pre">validate_document_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/arangodol.html#validate_document_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arangodol.validate_document_key" title="Link to this definition">#</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">key</span></code> if it is a safe ArangoDB document key, else raise <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>.</p>
+<p>Keys end up in request URLs, so anything outside ArangoDB’s key alphabet (such
+as <code class="docutils literal notranslate"><span class="pre">/</span></code>) or a dot segment could address a different collection or database.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">validate_document_key</span><span class="p">(</span><span class="s1">'Robot::0a1b'</span><span class="p">)</span>
+</span><span data-line="2"><span class="go">'Robot::0a1b'</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">validate_document_key</span><span class="p">(</span><span class="s1">'a/b'</span><span class="p">)</span>
+</span><span data-line="4"><span class="gt">Traceback (most recent call last):</span>
+</span><span data-line="5"><span class="w">  </span><span class="c">...</span>
+</span><span data-line="6"><span class="gr">KeyError</span>: <span class="n">"Invalid ArangoDB document key: 'a/b'"</span>
+</span><span data-line="7"><span class="gp">&gt;&gt;&gt; </span><span class="n">validate_document_key</span><span class="p">(</span><span class="s1">'..'</span><span class="p">)</span>
+</span><span data-line="8"><span class="gt">Traceback (most recent call last):</span>
+</span><span data-line="9"><span class="w">  </span><span class="c">...</span>
+</span><span data-line="10"><span class="gr">KeyError</span>: <span class="n">"Invalid ArangoDB document key: '..'"</span>
+</span></pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="../api.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">API reference</div></div>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright">
+  <p>
+    Made with
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/i2mint/arangodol" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=47de8214"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=fd10adb8"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script></body>
+</html>
