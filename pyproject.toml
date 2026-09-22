@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "arangodol"
-version = "0.0.2"
+version = "0.0.3"
 description = "ArangoDB with a simple (dict-like or list-like) interface"
 readme = "README.md"
 requires-python = ">=3.10"

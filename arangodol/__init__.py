@@ -1,6 +1,7 @@
 """
 arango with a simple (dict-like or list-like) interface
 """
+
 import re
 
 from dol.base import Persister
@@ -95,17 +96,19 @@ class ArangoDbPersister(Persister):
     _reserved = {"_key", "_id", "_rev"}
 
     def __init__(
-            self,
-            user="root",
-            password="root",
-            url="http://127.0.0.1:8529",
-            db_name="py2store",
-            collection_name="test",
-            key_fields=("key",),  # _id, _key and _rev are reserved by db
-            key_fields_separator="::",
+        self,
+        user="root",
+        password="root",
+        url="http://127.0.0.1:8529",
+        db_name="py2store",
+        collection_name="test",
+        key_fields=("key",),  # _id, _key and _rev are reserved by db
+        key_fields_separator="::",
     ):
         self._connection = Connection(
-            arangoURL=url, username=user, password=password,
+            arangoURL=url,
+            username=user,
+            password=password,
         )
 
         self._db_name = db_name
@@ -119,9 +122,7 @@ class ArangoDbPersister(Persister):
 
         # If collection not created:
         if not self._adb.hasCollection(self._collection_name):
-            self._collection = self._adb.createCollection(
-                name=self._collection_name
-            )
+            self._collection = self._adb.createCollection(name=self._collection_name)
 
         self._collection = self._adb[self._collection_name]
 
@@ -201,8 +202,7 @@ class ArangoDbPersister(Persister):
         docs = self._collection.fetchAll()
 
         yield from (
-            {key_name: doc[key_name] for key_name in self._key_fields}
-            for doc in docs
+            {key_name: doc[key_name] for key_name in self._key_fields} for doc in docs
         )
 
     def __len__(self):
@@ -254,9 +254,7 @@ class ArangoDbTupleKeyStore(ArangoDbStore):
         return self.store._key_fields
 
     def _id_of_key(self, k):
-        return {
-            field: field_val for field, field_val in zip(self._key_fields, k)
-        }
+        return {field: field_val for field, field_val in zip(self._key_fields, k)}
 
     def _key_of_id(self, _id):
         return tuple(_id[x] for x in self._key_fields)
