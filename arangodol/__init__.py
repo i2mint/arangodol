@@ -1,10 +1,47 @@
 """
 arango with a simple (dict-like or list-like) interface
 """
+import re
+
 from dol.base import Persister
 
 from pyArango.connection import Connection
 from pyArango.theExceptions import DocumentNotFoundError
+
+
+# ArangoDB's document-key alphabet, minus ``%``: pyArango places keys in request
+# URLs without encoding them, so a ``%`` would be percent-decoded by the server
+# and address a different document than the one stored.
+_VALID_KEY_CHARS = re.compile(r"[A-Za-z0-9_\-:.@()+,=;$!*']+")
+_MAX_KEY_BYTES = 254
+_DOT_SEGMENTS = {".", ".."}
+
+
+def validate_document_key(key):
+    """Return ``key`` if it is a safe ArangoDB document key, else raise ``KeyError``.
+
+    Keys end up in request URLs, so anything outside ArangoDB's key alphabet (such
+    as ``/``) or a dot segment could address a different collection or database.
+
+    >>> validate_document_key('Robot::0a1b')
+    'Robot::0a1b'
+    >>> validate_document_key('a/b')
+    Traceback (most recent call last):
+      ...
+    KeyError: "Invalid ArangoDB document key: 'a/b'"
+    >>> validate_document_key('..')
+    Traceback (most recent call last):
+      ...
+    KeyError: "Invalid ArangoDB document key: '..'"
+    """
+    if (
+        not isinstance(key, str)
+        or key in _DOT_SEGMENTS
+        or len(key.encode("utf-8")) > _MAX_KEY_BYTES
+        or not _VALID_KEY_CHARS.fullmatch(key)
+    ):
+        raise KeyError(f"Invalid ArangoDB document key: {key!r}")
+    return key
 
 
 class ArangoDbPersister(Persister):
@@ -111,7 +148,7 @@ class ArangoDbPersister(Persister):
         """
         key_values = [keys_dict[key_label] for key_label in self._key_fields]
         key_str = self._key_fields_separator.join(key_values)
-        return key_str
+        return validate_document_key(key_str)
 
     def _split_key(self, joined_key_str):
         """

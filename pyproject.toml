@@ -139,6 +139,7 @@ coverage_report_format = [
     "xml",
 ]
 exclude_paths = [
+    "docsrc",
     "examples",
     "scrap",
 ]

@@ -7,13 +7,16 @@ sleep 10 && \
 pytest tests/test_arangodb.py
 """
 
+import pytest
+
 from arangodol import ArangoDbPersister
 from arangodol import ArangoDbTupleKeyStore
 
+from ._live_server import DB_PASSWORD, DB_URL, server_is_up
 from .base_test import BasePersisterTest, BaseKeyTupleStoreTest
 
-DB_URL = "http://127.0.0.1:8529"
-DB_PASSWORD = "somepassword"
+if not server_is_up(DB_URL):
+    pytest.skip(f"No ArangoDB server at {DB_URL}", allow_module_level=True)
 
 
 class TestArangoDbPersister(BasePersisterTest):
