@@ -9,9 +9,10 @@ from pyArango.connection import Connection
 from pyArango.theExceptions import DocumentNotFoundError
 
 
-# ArangoDB's document-key alphabet, minus ``%``: pyArango places keys in request
-# URLs without encoding them, so a ``%`` would be percent-decoded by the server
-# and address a different document than the one stored.
+# ArangoDB's document-key alphabet, minus ``%``. pyArango places keys in request
+# URLs without encoding them and the server percent-decodes the path, so allowing
+# ``%`` would let encoded ``/`` or ``..`` address other collections or databases.
+# Do not add ``%`` back to match ArangoDB's documented alphabet.
 _VALID_KEY_CHARS = re.compile(r"[A-Za-z0-9_\-:.@()+,=;$!*']+")
 _MAX_KEY_BYTES = 254
 _DOT_SEGMENTS = {".", ".."}
@@ -180,11 +181,12 @@ class ArangoDbPersister(Persister):
         return data
 
     def __setitem__(self, keys_dict, values_dict):
+        key = self._make_key(keys_dict)  # validate before touching the backend
         try:
             doc = self.__fetchitem__(keys_dict)
         except KeyError:
             doc = self._collection.createDocument()
-            doc._key = self._make_key(keys_dict)
+            doc._key = key
 
         for k, v in values_dict.items():
             doc[k] = v

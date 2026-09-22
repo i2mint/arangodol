@@ -34,3 +34,31 @@ def test_make_key_validates_joined_key():
     assert p._make_key({"first_name": "a", "last_name": "b"}) == "a::b"
     with pytest.raises(KeyError):
         p._make_key({"first_name": "..", "last_name": "/x"})
+
+
+@pytest.mark.parametrize(
+    "key", ["%", "a\\b", "abc\n", "é", "a\x00", "a%2e%2e", "a%2F..%2Fx"]
+)
+def test_more_invalid_keys(key):
+    with pytest.raises(KeyError):
+        validate_document_key(key)
+
+
+class _BackendMustNotBeCalled:
+    def __getitem__(self, key):
+        raise AssertionError(f"backend reached with key {key!r}")
+
+    def createDocument(self, *args, **kwargs):
+        raise AssertionError("backend reached (createDocument)")
+
+
+def test_invalid_key_never_reaches_backend():
+    p = _persister(key_fields=("k",))
+    p._collection = _BackendMustNotBeCalled()
+    bad = {"k": "../x"}
+    with pytest.raises(KeyError):
+        p[bad]
+    with pytest.raises(KeyError):
+        del p[bad]
+    with pytest.raises(KeyError):
+        p[bad] = {"v": 1}
